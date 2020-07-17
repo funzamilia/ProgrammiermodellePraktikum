@@ -30,11 +30,13 @@ object ScalaMain{
     
     //Aufgabe 3:
     def isPerfect (number : Int) :Boolean =
-      return (isPerfect_help(number / 2, 0) == number)
+      if (number <= 1 || (number % 2 != 0)) return false 
+      else return (isPerfect_help(number - 1, 0, number) == number)
       
-    @tailrec def isPerfect_help (num : Int, accu : Int) :Int =
+    @tailrec def isPerfect_help (num : Int, accu : Int, original : Int) :Int =
       if (num == 1) return (accu + 1)
-      else return isPerfect_help ((num - (num / 2)), (accu + num))
+      else if (original % num  == 0) return isPerfect_help ((num - 1), (accu + num), original)
+      else return isPerfect_help ((num - 1), accu, original)
       
     assert(!isPerfect(5))
     assert(isPerfect(6))
